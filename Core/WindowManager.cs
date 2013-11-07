@@ -330,7 +330,8 @@ namespace Poderosa.Forms {
             return StartMode.Slave;
 #else
             //NOTE Preference‚©‚çŽæ“¾‚·‚é‚È‚Ç‚·‚×‚«‚©
-            return StartMode.StandAlone;
+			//TODO: load this from preferences
+            return StartMode.Slave;
 #endif
         }
 
