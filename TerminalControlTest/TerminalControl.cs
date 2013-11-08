@@ -1,28 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security;
-using System.Text;
 using System.Windows.Forms;
 using Granados;
 using Poderosa.Boot;
-using Poderosa.ConnectionParam;
 using Poderosa.Forms;
 using Poderosa.Plugins;
 using Poderosa.Protocols;
 using Poderosa.Sessions;
 using Poderosa.Terminal;
 
-namespace TerminalControlTest
+namespace Poderosa.TerminalControl
 {
 	public partial class TerminalControl : UserControl, IInterruptableConnectorClient
 	{
-		protected static IPoderosaApplication PoderosaApplication;
-		protected static IPoderosaWorld PoderosaWorld;
+		protected static IPoderosaApplication _poderosaApplication;
+		protected static IPoderosaWorld _poderosaWorld;
 
 		protected ITerminalSettings _settings;
 
@@ -37,8 +31,8 @@ namespace TerminalControlTest
 
 		static TerminalControl()
 		{
-			PoderosaApplication = PoderosaStartup.CreatePoderosaApplication(new string[] { });
-			PoderosaWorld = PoderosaApplication.Start();
+			_poderosaApplication = PoderosaStartup.CreatePoderosaApplication(new string[] { });
+			_poderosaWorld = _poderosaApplication.Start();
 		}
 
 		public string Username
@@ -86,8 +80,8 @@ namespace TerminalControlTest
 		public void AsyncConnect()
 		{
 			ITerminalEmulatorService terminalEmulatorService =
-				(ITerminalEmulatorService)PoderosaWorld.PluginManager.FindPlugin("org.poderosa.terminalemulator", typeof(ITerminalEmulatorService));
-			IProtocolService protocolService = (IProtocolService)PoderosaWorld.PluginManager.FindPlugin("org.poderosa.protocols", typeof(IProtocolService));
+				(ITerminalEmulatorService)_poderosaWorld.PluginManager.FindPlugin("org.poderosa.terminalemulator", typeof(ITerminalEmulatorService));
+			IProtocolService protocolService = (IProtocolService)_poderosaWorld.PluginManager.FindPlugin("org.poderosa.protocols", typeof(IProtocolService));
 
 			ISSHLoginParameter sshLoginParameter = protocolService.CreateDefaultSSHParameter();
 
@@ -120,7 +114,7 @@ namespace TerminalControlTest
 			_settings = terminalEmulatorService.CreateDefaultTerminalSettings(tcpParameter.Destination, null);
 
 			_settings.BeginUpdate();
-			_settings.TerminalType = (Poderosa.ConnectionParam.TerminalType)Enum.Parse(typeof(Poderosa.ConnectionParam.TerminalType), TerminalType.ToString("G"));
+			_settings.TerminalType = (ConnectionParam.TerminalType)Enum.Parse(typeof(ConnectionParam.TerminalType), TerminalType.ToString("G"));
 			_settings.RenderProfile = terminalEmulatorService.TerminalEmulatorOptions.CreateRenderProfile();
 			_settings.RenderProfile.BackColor = BackColor;
 			_settings.RenderProfile.ForeColor = ForeColor;
@@ -136,10 +130,10 @@ namespace TerminalControlTest
 
 		public void SuccessfullyExit(ITerminalConnection result)
 		{
-			ICoreServices cs = (ICoreServices)PoderosaWorld.GetAdapter(typeof(ICoreServices));
+			ICoreServices cs = (ICoreServices)_poderosaWorld.GetAdapter(typeof(ICoreServices));
 			IWindowManager wm = cs.WindowManager;
 			IViewManager pm = wm.ActiveWindow.ViewManager;
-			TerminalSession ts = new TerminalSession(result, _settings);
+			Sessions.TerminalSession ts = new Sessions.TerminalSession(result, _settings);
 
 			wm.ActiveWindow.AsForm().Invoke(
 				new Action(

@@ -1,9 +1,9 @@
 ﻿using System.Drawing;
-using System.Runtime.InteropServices;
 using System.Security;
 using System.Windows.Forms;
+using Poderosa.TerminalControl;
 
-namespace TerminalControlTest
+namespace TerminalControlTestApp
 {
 	public partial class Form1 : Form
 	{

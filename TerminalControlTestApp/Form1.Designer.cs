@@ -1,4 +1,4 @@
-﻿namespace TerminalControlTest
+﻿namespace TerminalControlTestApp
 {
 	partial class Form1
 	{

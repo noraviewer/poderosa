@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
-using Poderosa.Boot;
-using Poderosa.Plugins;
 
-namespace TerminalControlTest
+namespace TerminalControlTestApp
 {
 	static class Program
 	{

@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{905A3F58-C505-4B2A-B131-69224A1DA2CC}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{199FC123-BB32-4493-A6C9-9340FBCFC0DF}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Poderosa.TerminalControl</RootNamespace>
-    <AssemblyName>Poderosa.TerminalControl</AssemblyName>
+    <RootNamespace>TerminalControlTestApp</RootNamespace>
+    <AssemblyName>TerminalControlTestApp</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,9 +31,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -48,15 +44,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SshProtocol.cs" />
-    <Compile Include="TerminalControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="TerminalControl.Designer.cs">
-      <DependentUpon>TerminalControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TerminalType.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -65,7 +63,6 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -78,57 +75,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core\Core.csproj">
-      <Project>{8a416f19-9031-44a1-b225-bcb31a6bc6a7}</Project>
-      <Name>Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Granados\Granados.csproj">
-      <Project>{9d114b8b-e62c-4fbf-b281-0227755c8091}</Project>
-      <Name>Granados</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Macro\Macro.csproj">
-      <Project>{55c7d90f-bfd3-4d7e-990b-8d6d0a0cf951}</Project>
-      <Name>Macro</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Pipe\Pipe.csproj">
-      <Project>{ba5adff2-747a-4090-b758-44c70fc1544f}</Project>
-      <Name>Pipe</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Plugin\Plugin.csproj">
-      <Project>{d84b661b-503e-4c22-892b-7499b72c7e04}</Project>
-      <Name>Plugin</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PortForwardingCommand\PortForwardingCommand.csproj">
-      <Project>{c9b6c0fe-904c-4809-887d-2aaa168ab1e1}</Project>
-      <Name>PortForwardingCommand</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Protocols\Protocols.csproj">
-      <Project>{04f18da5-bf47-48a3-9b8b-b6b93dcba875}</Project>
+      <Project>{04F18DA5-BF47-48A3-9B8B-B6B93DCBA875}</Project>
       <Name>Protocols</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SFTP\SFTP.csproj">
-      <Project>{a6d32222-4fa2-4197-9b48-36199fb49321}</Project>
-      <Name>SFTP</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TerminalEmulator\TerminalEmulator.csproj">
-      <Project>{7f80731c-443a-4533-90d1-1643a5c1364e}</Project>
-      <Name>TerminalEmulator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TerminalSession\TerminalSession.csproj">
-      <Project>{4554e83a-2a00-47e2-ab5b-14a228895c17}</Project>
-      <Name>TerminalSession</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\UI\UI.csproj">
-      <Project>{9568d8ac-7b55-42e0-acd7-204e397e7048}</Project>
-      <Name>UI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Usability\Usability.csproj">
-      <Project>{7b6ba4da-8390-4605-b979-c2d1cc09bd9a}</Project>
-      <Name>Usability</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\XZModem\XZModem.csproj">
-      <Project>{94d36612-2006-49f3-802e-a7c59e9aff12}</Project>
-      <Name>XZModem</Name>
+    <ProjectReference Include="..\TerminalControlTest\TerminalControl.csproj">
+      <Project>{905A3F58-C505-4B2A-B131-69224A1DA2CC}</Project>
+      <Name>TerminalControl</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

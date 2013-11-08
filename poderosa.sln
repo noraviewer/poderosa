@@ -36,6 +36,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFTP", "SFTP\SFTP.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TerminalControl", "TerminalControlTest\TerminalControl.csproj", "{905A3F58-C505-4B2A-B131-69224A1DA2CC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TerminalControlTestApp", "TerminalControlTestApp\TerminalControlTestApp.csproj", "{199FC123-BB32-4493-A6C9-9340FBCFC0DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug(UIDesign)|Any CPU = Debug(UIDesign)|Any CPU
@@ -188,6 +190,14 @@ Global
 		{905A3F58-C505-4B2A-B131-69224A1DA2CC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{905A3F58-C505-4B2A-B131-69224A1DA2CC}.UnitTest|Any CPU.ActiveCfg = Release|Any CPU
 		{905A3F58-C505-4B2A-B131-69224A1DA2CC}.UnitTest|Any CPU.Build.0 = Release|Any CPU
+		{199FC123-BB32-4493-A6C9-9340FBCFC0DF}.Debug(UIDesign)|Any CPU.ActiveCfg = Debug|Any CPU
+		{199FC123-BB32-4493-A6C9-9340FBCFC0DF}.Debug(UIDesign)|Any CPU.Build.0 = Debug|Any CPU
+		{199FC123-BB32-4493-A6C9-9340FBCFC0DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{199FC123-BB32-4493-A6C9-9340FBCFC0DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{199FC123-BB32-4493-A6C9-9340FBCFC0DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{199FC123-BB32-4493-A6C9-9340FBCFC0DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{199FC123-BB32-4493-A6C9-9340FBCFC0DF}.UnitTest|Any CPU.ActiveCfg = Release|Any CPU
+		{199FC123-BB32-4493-A6C9-9340FBCFC0DF}.UnitTest|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

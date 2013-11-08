@@ -1,4 +1,4 @@
-﻿namespace TerminalControlTest
+﻿namespace Poderosa.TerminalControl
 {
 	partial class TerminalControl
 	{
