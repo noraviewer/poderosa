@@ -43,12 +43,14 @@ namespace Poderosa.Forms {
         private WindowPreference _preferences;
         private ViewFactoryManager _viewFactoryManager;
 
-        private object _draggingObject;
+		private object _draggingObject;
         private SelectionService _selectionService;
 
         private bool _executingAllWindowClose;
 
         private static WindowManagerPlugin _instance;
+
+	    private bool _invisibleMode;
 
         public static WindowManagerPlugin Instance {
             get {
@@ -60,6 +62,13 @@ namespace Poderosa.Forms {
         public override void InitializePlugin(IPoderosaWorld poderosa) {
             base.InitializePlugin(poderosa);
             _instance = this;
+
+#if UNITTEST
+            StartMode =  StartMode.Slave;
+#else
+			//NOTE Preferenceから取得するなどすべきか
+			StartMode = StartMode.StandAlone;
+#endif
 
             //Coreアセンブリ内のプラグインを代表してここでAdapterFactoryをセット
             new CoreServices(poderosa);
@@ -86,7 +95,6 @@ namespace Poderosa.Forms {
             _popupWindows = new List<PopupViewContainer>();
 
             _menu = new MainWindowMenu();
-            _appContext = new PoderosaAppContext(GetStartMode());
             _selectionService = new SelectionService(this);
             _viewFactoryManager = new ViewFactoryManager();
 
@@ -96,12 +104,14 @@ namespace Poderosa.Forms {
 
         public void RunExtension() {
             try {
+				_appContext = new PoderosaAppContext(StartMode);
+
                 _poderosaWorld.Culture.SetCulture(CoreServicePreferenceAdapter.LangToCulture(_preferences.OriginalPreference.Language));
                 MainWindowArgument[] args = MainWindowArgument.Parse(_preferences);
                 foreach (MainWindowArgument arg in args)
                     _windows.Add(CreateMainWindow(arg));
 
-                if (GetStartMode() == StartMode.StandAlone) {
+                if (StartMode == StartMode.StandAlone) {
                     Application.Run(_appContext);
                     IPoderosaApplication app = (IPoderosaApplication)_poderosaWorld.GetAdapter(typeof(IPoderosaApplication));
                     app.Shutdown();
@@ -119,8 +129,15 @@ namespace Poderosa.Forms {
             w.Activated += delegate(object sender, EventArgs args) {
                 _activeWindow = (MainWindow)sender; //最後にアクティブになったものを指定する
             };
-            w.Show();
-            return w;
+
+	        if (InvisibleMode) {
+		        w.WindowState = FormWindowState.Minimized;
+		        w.ShowInTaskbar = false;
+	        }
+
+	        w.Show();
+
+	        return w;
         }
 
         public void CreateNewWindow(MainWindowArgument arg) {
@@ -156,7 +173,7 @@ namespace Poderosa.Forms {
             }
             _windows.Remove(w);
             NotifyMainWindowUnloaded(w);
-            if (_windows.Count == 0 && GetStartMode() == StartMode.StandAlone) {
+            if (_windows.Count == 0 && StartMode == StartMode.StandAlone) {
                 CloseAllPopupWindows();
                 _appContext.ExitThread();
             }
@@ -212,7 +229,21 @@ namespace Poderosa.Forms {
             ReloadPreference(_preferences.OriginalPreference);
         }
 
-        //Popup作成
+	    public bool InvisibleMode {
+		    get {
+				return _invisibleMode;
+		    }
+		    set {
+				_invisibleMode = value;
+
+				foreach (MainWindow w in _windows) {
+					w.WindowState = FormWindowState.Minimized;
+					w.ShowInTaskbar = false;
+				}
+		    }
+	    }
+
+	    //Popup作成
         public IPoderosaPopupWindow CreatePopupView(PopupViewCreationParam viewcreation) {
             PopupViewContainer vc = new PopupViewContainer(viewcreation);
             if (viewcreation.OwnedByCommandTargetWindow)
@@ -325,15 +356,10 @@ namespace Poderosa.Forms {
             _draggingObject = value;
         }
 
-        private StartMode GetStartMode() {
-#if UNITTEST
-            return StartMode.Slave;
-#else
-            //NOTE Preferenceから取得するなどすべきか
-			//TODO: load this from preferences
-            return StartMode.Slave;
-#endif
-        }
+		public StartMode StartMode {
+			get;
+			set;
+		}
 
         private void CloseAllPopupWindows() {
             PopupViewContainer[] ws = _popupWindows.ToArray();
@@ -527,7 +553,7 @@ namespace Poderosa.Forms {
     }
 
 
-    internal enum StartMode {
+    public enum StartMode {
         StandAlone,
         Slave
     }

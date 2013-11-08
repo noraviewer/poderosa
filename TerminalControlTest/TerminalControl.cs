@@ -141,7 +141,6 @@ namespace Poderosa.TerminalControl
 					{
 						IContentReplaceableView rv = (IContentReplaceableView)pm.GetCandidateViewForNewDocument().GetAdapter(typeof(IContentReplaceableView));
 						cs.SessionManager.StartNewSession(ts, rv);
-						cs.SessionManager.ActivateDocument(ts.Terminal.IDocument, ActivateReason.InternalAction);
 
 						ts.TerminalControl.HideSizeTip = true;
 
@@ -170,8 +169,12 @@ namespace Poderosa.TerminalControl
 
 						containerForm.TopLevel = false;
 						containerForm.FormBorderStyle = FormBorderStyle.None;
-						containerForm.Parent = this;
+						containerForm.Width = Width;
+						containerForm.Height = Height;
 						containerForm.Dock = DockStyle.Fill;
+						containerForm.Parent = this;
+
+						rv.AsControl().Focus();
 					}));
 		}
 

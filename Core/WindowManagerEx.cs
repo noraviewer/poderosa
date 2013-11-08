@@ -364,6 +364,16 @@ namespace Poderosa.Forms {
         /// </en>
         /// </summary>
         void ReloadPreference();
+
+		bool InvisibleMode {
+			get;
+			set;
+		}
+
+		StartMode StartMode {
+			get;
+			set;
+		}
     }
 
     //アプリ全体に関係し、かつsystem.Windows.Formsがらみ
