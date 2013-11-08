@@ -52,6 +52,14 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SshProtocol.cs" />
+    <Compile Include="TerminalControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TerminalControl.Designer.cs">
+      <DependentUpon>TerminalControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TerminalType.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

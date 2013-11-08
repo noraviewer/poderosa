@@ -86,7 +86,7 @@ namespace Poderosa.Forms {
             _popupWindows = new List<PopupViewContainer>();
 
             _menu = new MainWindowMenu();
-            _appContext = new PoderosaAppContext();
+            _appContext = new PoderosaAppContext(GetStartMode());
             _selectionService = new SelectionService(this);
             _viewFactoryManager = new ViewFactoryManager();
 
@@ -516,10 +516,12 @@ namespace Poderosa.Forms {
     }
 
     internal class PoderosaAppContext : ApplicationContext {
-        public PoderosaAppContext() {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.VisualStyleState = System.Windows.Forms.VisualStyles.VisualStyleState.ClientAndNonClientAreasEnabled;
+        public PoderosaAppContext(StartMode startMode) {
+	        if (startMode == StartMode.StandAlone) {
+		        Application.EnableVisualStyles();
+		        Application.SetCompatibleTextRenderingDefault(false);
+		        Application.VisualStyleState = System.Windows.Forms.VisualStyles.VisualStyleState.ClientAndNonClientAreasEnabled;
+	        }
         }
 
     }

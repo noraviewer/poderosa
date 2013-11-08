@@ -9,9 +9,6 @@ namespace TerminalControlTest
 {
 	static class Program
 	{
-		public static IPoderosaApplication PoderosaApplication;
-		public static IPoderosaWorld PoderosaWorld;
-
 		/// <summary>
 		/// The main entry point for the application.
 		/// </summary>
@@ -20,9 +17,6 @@ namespace TerminalControlTest
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-
-			PoderosaApplication = PoderosaStartup.CreatePoderosaApplication(new string[] {});
-			PoderosaWorld = PoderosaApplication.Start();
 
 			Application.Run(new Form1());
 		}

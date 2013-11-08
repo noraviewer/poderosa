@@ -89,6 +89,12 @@ namespace Poderosa.Terminal {
             return _session.TerminalTransmission.Connection.IsClosed;
         }
 
+		public bool HideSizeTip
+		{
+			get;
+			set;
+		}
+
 
         /// <summary>
         /// 必要なデザイナ変数です。
@@ -662,7 +668,7 @@ namespace Poderosa.Terminal {
             const int MARGIN = 8;
             //Form form = GEnv.Frame.AsForm();
             //if(form==null || !form.Visible) return; //起動時には表示しない
-            if (!this.Visible)
+            if (!this.Visible || HideSizeTip)
                 return;
 
             Point pt = new Point(this.Width - _VScrollBar.Width - _sizeTip.Width - MARGIN, this.Height - _sizeTip.Height - MARGIN);
