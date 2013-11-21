@@ -132,50 +132,52 @@ namespace Poderosa.TerminalControl
 		{
 			ICoreServices cs = (ICoreServices)_poderosaWorld.GetAdapter(typeof(ICoreServices));
 			IWindowManager wm = cs.WindowManager;
-			IViewManager pm = wm.ActiveWindow.ViewManager;
-			Sessions.TerminalSession ts = new Sessions.TerminalSession(result, _settings);
 
 			wm.ActiveWindow.AsForm().Invoke(
 				new Action(
 					() =>
-					{
-						IContentReplaceableView rv = (IContentReplaceableView)pm.GetCandidateViewForNewDocument().GetAdapter(typeof(IContentReplaceableView));
-						cs.SessionManager.StartNewSession(ts, rv);
-
-						ts.TerminalControl.HideSizeTip = true;
-
-						Form containerForm = rv.ParentForm.AsForm();
-
-						foreach (Control control in containerForm.Controls)
 						{
-							if (control is MenuStrip || control.GetType().Name == "PoderosaStatusBar")
-								control.Visible = false;
+							IPoderosaMainWindow window = wm.CreateNewWindow(new MainWindowArgument(ClientRectangle, FormWindowState.Normal, "", "", 1));
+							IViewManager pm = window.ViewManager;
+							Sessions.TerminalSession ts = new Sessions.TerminalSession(result, _settings);
 
-							else if (control.GetType().Name == "PoderosaToolStripContainer")
+							IContentReplaceableView rv = (IContentReplaceableView)pm.GetCandidateViewForNewDocument().GetAdapter(typeof(IContentReplaceableView));
+							cs.SessionManager.StartNewSession(ts, rv);
+
+							ts.TerminalControl.HideSizeTip = true;
+
+							Form containerForm = rv.ParentForm.AsForm();
+
+							foreach (Control control in containerForm.Controls)
 							{
-								foreach (ToolStripPanel child in control.Controls.OfType<ToolStripPanel>())
-									child.Visible = false;
+								if (control is MenuStrip || control.GetType().Name == "PoderosaStatusBar")
+									control.Visible = false;
 
-								foreach (ToolStripContentPanel child in control.Controls.OfType<ToolStripContentPanel>())
+								else if (control.GetType().Name == "PoderosaToolStripContainer")
 								{
-									foreach (Control grandChild in child.Controls)
+									foreach (ToolStripPanel child in control.Controls.OfType<ToolStripPanel>())
+										child.Visible = false;
+
+									foreach (ToolStripContentPanel child in control.Controls.OfType<ToolStripContentPanel>())
 									{
-										if (grandChild.GetType().Name != "TerminalControl")
-											grandChild.Visible = false;
+										foreach (Control grandChild in child.Controls)
+										{
+											if (grandChild.GetType().Name != "TerminalControl")
+												grandChild.Visible = false;
+										}
 									}
 								}
 							}
-						}
 
-						containerForm.TopLevel = false;
-						containerForm.FormBorderStyle = FormBorderStyle.None;
-						containerForm.Width = Width;
-						containerForm.Height = Height;
-						containerForm.Dock = DockStyle.Fill;
-						containerForm.Parent = this;
+							containerForm.TopLevel = false;
+							containerForm.FormBorderStyle = FormBorderStyle.None;
+							containerForm.Width = Width;
+							containerForm.Height = Height;
+							containerForm.Dock = DockStyle.Fill;
+							containerForm.Parent = this;
 
-						rv.AsControl().Focus();
-					}));
+							rv.AsControl().Focus();
+						}));
 		}
 
 		public void ConnectionFailed(string message)

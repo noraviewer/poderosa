@@ -374,6 +374,8 @@ namespace Poderosa.Forms {
 			get;
 			set;
 		}
+
+	    IPoderosaMainWindow CreateNewWindow(MainWindowArgument arg);
     }
 
     //アプリ全体に関係し、かつsystem.Windows.Formsがらみ

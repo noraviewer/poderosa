@@ -46,8 +46,6 @@ namespace Poderosa.Forms {
             this.ImeMode = ImeMode.NoControl;
             this.AllowDrop = true;
 
-            arg.ApplyToUnloadedWindow(this);
-
             InitContent();
 
             ReloadMenu(menu, true);
@@ -129,11 +127,67 @@ namespace Poderosa.Forms {
         protected override void OnLoad(EventArgs e) {
             //NOTE なぜかは不明だが、ウィンドウの位置はForm.Show()の呼び出し前に指定しても無視されて適当な位置が設定されてしまう。
             //なのでここで行うようにした。
-            _argument.ApplyToLoadedWindow(this);
+            ApplyArgumentToLoadedWindow(_argument);
             base.OnLoad(e);
             //通知 クローズ時はWindowManagerが登録するイベントハンドラから
             WindowManagerPlugin.Instance.NotifyMainWindowLoaded(this);
         }
+
+		public void ApplyArgumentToLoadedWindow(MainWindowArgument arg)
+		{
+			const int MARGIN = 3;
+			Rectangle titlebarRect =
+				new Rectangle(arg.Location.X + MARGIN, arg.Location.Y + MARGIN,
+								Math.Max(arg.Location.Width - MARGIN * 2, 1),
+								Math.Max(SystemInformation.CaptionHeight - MARGIN * 2, 1));
+			bool visible = false;
+			foreach (Screen s in Screen.AllScreens)
+			{
+				if (s.WorkingArea.IntersectsWith(titlebarRect))
+					visible = true;
+			}
+
+			Rectangle location = new Rectangle(arg.Location.Location, arg.Location.Size);
+
+			if (!visible)
+			{
+				Screen baseScreen = null;
+				foreach (Screen s in Screen.AllScreens)
+				{
+					if (s.Bounds.IntersectsWith(arg.Location))
+					{
+						baseScreen = s;
+						break;
+					}
+				}
+				if (baseScreen == null)
+					baseScreen = Screen.PrimaryScreen;
+
+				Rectangle sb = baseScreen.WorkingArea;
+
+				if (location.Width > sb.Width)
+					location.Width = sb.Width;
+				if (location.Height > sb.Height)
+					location.Height = sb.Height;
+				location.X = sb.X + (sb.Width - arg.Location.Width) / 2;
+				location.Y = sb.Y + (sb.Height - arg.Location.Height) / 2;
+			}
+
+			//DesktopBoundsの設定はOnLoadの中じゃないといかんらしい
+			DesktopBounds = location;
+			WindowState = arg.WindowState;
+
+			//頑張ればOnLoad以前にSplitInfoを適用できるかも
+			if (arg.SplitInfo.Length > 0)
+			{
+				ISplittableViewManager vm = (ISplittableViewManager)ViewManager.GetAdapter(typeof(ISplittableViewManager));
+				if (vm != null)
+					vm.ApplySplitInfo(arg.SplitInfo);
+			}
+
+			//ToolBarのコンポーネント位置調整
+			ToolBarInternal.RestoreLayout();
+		}
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e) {
             base.OnClosing(e);

@@ -140,8 +140,12 @@ namespace Poderosa.Forms {
 	        return w;
         }
 
-        public void CreateNewWindow(MainWindowArgument arg) {
-            _windows.Add(CreateMainWindow(arg));
+        public IPoderosaMainWindow CreateNewWindow(MainWindowArgument arg)
+        {
+	        MainWindow newWindow = CreateMainWindow(arg);
+			_windows.Add(newWindow);
+
+	        return newWindow;
         }
 
         //アプリ終了時
@@ -414,7 +418,7 @@ namespace Poderosa.Forms {
         }
     }
 
-    internal class MainWindowArgument {
+    public class MainWindowArgument {
         private Rectangle _location;
         private FormWindowState _windowState;
         private string _splitInfo;
@@ -438,57 +442,21 @@ namespace Poderosa.Forms {
                 return _tabRowCount;
             }
         }
-
-        //フォームへの適用は、OnLoadの前と後で分ける
-        public void ApplyToUnloadedWindow(MainWindow f) {
-        }
-
-        public void ApplyToLoadedWindow(MainWindow f) {
-            const int MARGIN = 3;
-            Rectangle titlebarRect =
-                new Rectangle(_location.X + MARGIN, _location.Y + MARGIN,
-                                Math.Max(_location.Width - MARGIN * 2, 1),
-                                Math.Max(SystemInformation.CaptionHeight - MARGIN * 2, 1));
-            bool visible = false;
-            foreach (Screen s in Screen.AllScreens) {
-                if (s.WorkingArea.IntersectsWith(titlebarRect))
-                    visible = true;
-            }
-
-            if (!visible) {
-                Screen baseScreen = null;
-                foreach (Screen s in Screen.AllScreens) {
-                    if (s.Bounds.IntersectsWith(_location)) {
-                        baseScreen = s;
-                        break;
-                    }
-                }
-                if (baseScreen == null)
-                    baseScreen = Screen.PrimaryScreen;
-
-                Rectangle sb = baseScreen.WorkingArea;
-                if (_location.Width > sb.Width)
-                    _location.Width = sb.Width;
-                if (_location.Height > sb.Height)
-                    _location.Height = sb.Height;
-                _location.X = sb.X + (sb.Width - _location.Width) / 2;
-                _location.Y = sb.Y + (sb.Height - _location.Height) / 2;
-            }
-
-            //DesktopBoundsの設定はOnLoadの中じゃないといかんらしい
-            f.DesktopBounds = _location;
-            f.WindowState = _windowState;
-
-            //頑張ればOnLoad以前にSplitInfoを適用できるかも
-            if (_splitInfo.Length > 0) {
-                ISplittableViewManager vm = (ISplittableViewManager)f.ViewManager.GetAdapter(typeof(ISplittableViewManager));
-                if (vm != null)
-                    vm.ApplySplitInfo(_splitInfo);
-            }
-
-            //ToolBarのコンポーネント位置調整
-            f.ToolBarInternal.RestoreLayout();
-        }
+	    public Rectangle Location {
+		    get {
+			    return _location;
+		    }
+	    }
+	    public FormWindowState WindowState {
+		    get {
+			    return _windowState;
+		    }
+	    }
+	    public string SplitInfo {
+		    get {
+			    return _splitInfo;
+		    }
+	    }
 
         //位置情報の保存と復元
         //この正規表現で示される値で。例 (Max,0,0,1024,768) 位置に負の値を許すことに注意。
