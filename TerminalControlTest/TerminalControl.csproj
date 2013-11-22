@@ -87,14 +87,6 @@
       <Project>{9d114b8b-e62c-4fbf-b281-0227755c8091}</Project>
       <Name>Granados</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Macro\Macro.csproj">
-      <Project>{55c7d90f-bfd3-4d7e-990b-8d6d0a0cf951}</Project>
-      <Name>Macro</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Pipe\Pipe.csproj">
-      <Project>{ba5adff2-747a-4090-b758-44c70fc1544f}</Project>
-      <Name>Pipe</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Plugin\Plugin.csproj">
       <Project>{d84b661b-503e-4c22-892b-7499b72c7e04}</Project>
       <Name>Plugin</Name>
@@ -107,10 +99,6 @@
       <Project>{04f18da5-bf47-48a3-9b8b-b6b93dcba875}</Project>
       <Name>Protocols</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SFTP\SFTP.csproj">
-      <Project>{a6d32222-4fa2-4197-9b48-36199fb49321}</Project>
-      <Name>SFTP</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TerminalEmulator\TerminalEmulator.csproj">
       <Project>{7f80731c-443a-4533-90d1-1643a5c1364e}</Project>
       <Name>TerminalEmulator</Name>
@@ -122,14 +110,6 @@
     <ProjectReference Include="..\UI\UI.csproj">
       <Project>{9568d8ac-7b55-42e0-acd7-204e397e7048}</Project>
       <Name>UI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Usability\Usability.csproj">
-      <Project>{7b6ba4da-8390-4605-b979-c2d1cc09bd9a}</Project>
-      <Name>Usability</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\XZModem\XZModem.csproj">
-      <Project>{94d36612-2006-49f3-802e-a7c59e9aff12}</Project>
-      <Name>XZModem</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
