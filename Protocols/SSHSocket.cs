@@ -80,7 +80,10 @@ namespace Poderosa.Protocols {
         public virtual void EstablishPortforwarding(ISSHChannelEventReceiver receiver, SSHChannel channel) {
         }
 
-        protected void OnNormalTerminationCore() {
+	    public event EventHandler ConnectionClosed;
+	    public event ErrorEventHandler ConnectionLost;
+
+	    protected void OnNormalTerminationCore() {
             if (_normalTerminationCalled)
                 return;
 
@@ -99,6 +102,9 @@ namespace Poderosa.Protocols {
             catch (Exception ex) {
                 CloseError(ex);
             }
+
+			if (ConnectionClosed != null)
+				ConnectionClosed(this, new EventArgs());
         }
         protected void OnAbnormalTerminationCore(string msg) {
             EnsureCallbackHandler();
@@ -111,6 +117,9 @@ namespace Poderosa.Protocols {
             catch (Exception ex) {
                 CloseError(ex);
             }
+
+			if (ConnectionLost != null)
+				ConnectionLost(this, new ErrorEventArgs(new Exception(msg)));
         }
         protected void EnsureCallbackHandler() {
             int n = 0;
@@ -259,7 +268,7 @@ namespace Poderosa.Protocols {
             }
         }
 
-        public void OnChannelReady() { //!!Transmitを許可する通知が必要？
+	    public void OnChannelReady() { //!!Transmitを許可する通知が必要？
         }
 
         public void OnChannelError(Exception ex) {

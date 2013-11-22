@@ -283,7 +283,7 @@ namespace Poderosa.Protocols {
     }
 
 
-    internal class SSHTerminalConnection : TCPTerminalConnection {
+    internal class SSHTerminalConnection : TCPTerminalConnection, ICloseableTerminalConnection {
 
         private SSHConnectionEventReceiverBase _sshSocket; //Keyboard-interactiveÇÃÇ∆Ç´ÇÃîFèÿíÜÇÃÇ›_sshSocketÇÕKeyboardInteractiveAuthHanlder
         private ISSHLoginParameter _sshLoginParameter;
@@ -388,6 +388,31 @@ namespace Poderosa.Protocols {
         }
 #endif
 
+	    public event EventHandler ConnectionClosed
+	    {
+		    add
+		    {
+			    ConnectionEventReceiver.ConnectionClosed += value;
+		    }
+
+			remove
+			{
+				ConnectionEventReceiver.ConnectionClosed -= value;
+			}
+	    }
+
+	    public event ErrorEventHandler ConnectionLost
+	    {
+		    add
+		    {
+			    ConnectionEventReceiver.ConnectionLost += value;
+		    }
+
+			remove
+			{
+				ConnectionEventReceiver.ConnectionLost -= value;
+			}
+	    }
     }
 
     internal class TelnetReceiver : IByteAsyncInputStream {

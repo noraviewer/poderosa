@@ -517,7 +517,10 @@ namespace Granados.Tutorial {
             _pf = channel;
         }
 
-        public SSHChannel _pf;
+	    public event EventHandler ConnectionClosed;
+	    public event ErrorEventHandler ConnectionLost;
+
+	    public SSHChannel _pf;
     }
 
     /// <summary>

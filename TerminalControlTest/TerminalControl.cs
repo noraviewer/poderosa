@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security;
@@ -19,6 +20,10 @@ namespace Poderosa.TerminalControl
 		protected static IPoderosaWorld _poderosaWorld;
 
 		protected ITerminalSettings _settings;
+
+		public event EventHandler Connected;
+		public event ErrorEventHandler Disconnected;
+		public event EventHandler LoggedOff;
 
 		public TerminalControl()
 		{
@@ -133,6 +138,9 @@ namespace Poderosa.TerminalControl
 			ICoreServices cs = (ICoreServices)_poderosaWorld.GetAdapter(typeof(ICoreServices));
 			IWindowManager wm = cs.WindowManager;
 
+			(result as ICloseableTerminalConnection).ConnectionClosed += TerminalControl_ConnectionClosed;
+			(result as ICloseableTerminalConnection).ConnectionLost += TerminalControl_ConnectionLost;
+
 			wm.ActiveWindow.AsForm().Invoke(
 				new Action(
 					() =>
@@ -178,11 +186,26 @@ namespace Poderosa.TerminalControl
 
 							rv.AsControl().Focus();
 						}));
+
+			if (Connected != null)
+				Connected(this, new EventArgs());
+		}
+
+		void TerminalControl_ConnectionLost(object sender, ErrorEventArgs e)
+		{
+			ConnectionFailed(e.GetException().Message);
+		}
+
+		void TerminalControl_ConnectionClosed(object sender, EventArgs e)
+		{
+			if (LoggedOff != null)
+				LoggedOff(this, new EventArgs());
 		}
 
 		public void ConnectionFailed(string message)
 		{
-			MessageBox.Show(message);
+			if (Disconnected != null)
+				Disconnected(this, new ErrorEventArgs(new Exception(message)));
 		}
 	}
 }

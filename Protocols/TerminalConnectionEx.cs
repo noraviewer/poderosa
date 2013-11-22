@@ -8,6 +8,7 @@
  */
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace Poderosa.Protocols {
@@ -113,6 +114,12 @@ namespace Poderosa.Protocols {
         /// <param name="height"><ja>変更後の高さ（文字単位）</ja><en>Height after it changes(unit of character)</en></param>
         void Resize(int width, int height);
     }
+
+	public interface ICloseableTerminalConnection : ITerminalConnection
+	{
+		event EventHandler ConnectionClosed;
+		event ErrorEventHandler ConnectionLost;
+	}
 
     /// <summary>
     /// <ja>

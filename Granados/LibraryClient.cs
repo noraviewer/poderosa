@@ -8,6 +8,7 @@
  $Id: LibraryClient.cs,v 1.4 2011/10/27 23:21:56 kzmi Exp $
 */
 using System;
+using System.IO;
 
 namespace Granados {
     //param connectionInfo is identical to the ConnectionInfo property of the connection 
@@ -65,6 +66,9 @@ namespace Granados {
         void OnAuthenticationPrompt(string[] prompts); //keyboard-interactive only
         PortForwardingCheckResult CheckPortForwardingRequest(string remote_host, int remote_port, string originator_ip, int originator_port);
         void EstablishPortforwarding(ISSHChannelEventReceiver receiver, SSHChannel channel);
+
+	    event EventHandler ConnectionClosed;
+		event ErrorEventHandler ConnectionLost;
     }
 
     /// <summary>
