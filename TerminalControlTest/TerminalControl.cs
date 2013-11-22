@@ -116,6 +116,7 @@ namespace Poderosa.TerminalControl
 			tcpParameter.Destination = HostName;
 			tcpParameter.Port = Port;
 
+			terminalEmulatorService.TerminalEmulatorOptions.RightButtonAction = MouseButtonAction.Paste;
 			_settings = terminalEmulatorService.CreateDefaultTerminalSettings(tcpParameter.Destination, null);
 
 			_settings.BeginUpdate();
