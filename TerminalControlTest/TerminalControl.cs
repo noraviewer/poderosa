@@ -37,7 +37,7 @@ namespace Poderosa.TerminalControl
 		static TerminalControl()
 		{
 			_poderosaApplication = PoderosaStartup.CreatePoderosaApplication(new string[] { });
-			_poderosaWorld = _poderosaApplication.Start();
+			_poderosaWorld = _poderosaApplication.Start(new EmptyTracer());
 		}
 
 		public string Username

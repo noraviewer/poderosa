@@ -90,22 +90,26 @@ namespace Poderosa.Boot {
                 return this;
             }
         }*/
-        public IPoderosaWorld Start() {
+
+	    public IPoderosaWorld Start(ITracer tracer) {
+			_startupContext.Tracer = tracer;
+
+			//Step1 プラグインの構成と初期化
+			_pluginManager.InitializePlugins(_startupContext);
+
+			//エラーレポート
+			if (!tracer.Document.IsEmpty)
+				ReportBootError(tracer.Document);
+
+			//Step2 ルートエクステンションの実行
+			RunRootExtensions();
+
+			return this;
+	    }
+	    public IPoderosaWorld Start() {
             DefaultTracer tracer = new DefaultTracer(_stringResource);
-            _startupContext.Tracer = tracer;
-
-            //Step1 プラグインの構成と初期化
-            _pluginManager.InitializePlugins(_startupContext);
-
-            //エラーレポート
-            if (!tracer.Document.IsEmpty)
-                ReportBootError(tracer.Document);
-
-            //Step2 ルートエクステンションの実行
-            RunRootExtensions();
-
-            return this;
-        }
+		    return Start(tracer);
+	    }
         public void Shutdown() {
             _pluginManager.Shutdown();
         }

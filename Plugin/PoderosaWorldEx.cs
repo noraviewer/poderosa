@@ -8,6 +8,7 @@
  */
 using System;
 using System.Globalization;
+using Poderosa.Boot;
 
 namespace Poderosa.Plugins {
     /// <summary>
@@ -98,6 +99,7 @@ namespace Poderosa.Plugins {
             get;
         }
         IPoderosaWorld Start();
+		IPoderosaWorld Start(ITracer tracer);
         void Shutdown();
         string InitialOpenFile {
             get;
