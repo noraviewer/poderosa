@@ -89,7 +89,7 @@
       <Project>{04F18DA5-BF47-48A3-9B8B-B6B93DCBA875}</Project>
       <Name>Protocols</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TerminalControlTest\TerminalControl.csproj">
+    <ProjectReference Include="..\TerminalControl\TerminalControl.csproj">
       <Project>{905A3F58-C505-4B2A-B131-69224A1DA2CC}</Project>
       <Name>TerminalControl</Name>
     </ProjectReference>

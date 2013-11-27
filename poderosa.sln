@@ -34,7 +34,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pipe", "Pipe\Pipe.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFTP", "SFTP\SFTP.csproj", "{A6D32222-4FA2-4197-9B48-36199FB49321}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TerminalControl", "TerminalControlTest\TerminalControl.csproj", "{905A3F58-C505-4B2A-B131-69224A1DA2CC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TerminalControl", "TerminalControl\TerminalControl.csproj", "{905A3F58-C505-4B2A-B131-69224A1DA2CC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TerminalControlTestApp", "TerminalControlTestApp\TerminalControlTestApp.csproj", "{199FC123-BB32-4493-A6C9-9340FBCFC0DF}"
 EndProject
