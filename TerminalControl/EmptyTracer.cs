@@ -8,6 +8,11 @@ namespace Poderosa.TerminalControl
 {
 	public class EmptyTracer : ITracer
 	{
+		public EmptyTracer()
+		{
+			Document = new TraceDocument();
+		}
+
 		public void Trace(string string_id)
 		{
 		}
