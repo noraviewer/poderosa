@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Poderosa.Boot;
 
 namespace Poderosa.TerminalControl
 {
+	/// <summary>
+	/// Fake tracer class designed to avoid notices about DLLs unable to be loaded being shown to the user.
+	/// </summary>
 	public class EmptyTracer : ITracer
 	{
 		public EmptyTracer()
