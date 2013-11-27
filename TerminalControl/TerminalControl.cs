@@ -219,14 +219,14 @@ namespace Poderosa.TerminalControl
 						{
 							// Create a new Poderosa window to contain the connection terminal
 							IPoderosaMainWindow window = windowManager.CreateNewWindow(new MainWindowArgument(ClientRectangle, FormWindowState.Normal, "", "", 1));
-							IViewManager pm = window.ViewManager;
-							Sessions.TerminalSession ts = new Sessions.TerminalSession(result, _settings);
+							IViewManager viewManager = window.ViewManager;
+							Sessions.TerminalSession session = new Sessions.TerminalSession(result, _settings);
 
 							// Create a new connection window within the Poderosa window, which we will later steal
-							IContentReplaceableView view = (IContentReplaceableView)pm.GetCandidateViewForNewDocument().GetAdapter(typeof(IContentReplaceableView));
-							coreServices.SessionManager.StartNewSession(ts, view);
+							IContentReplaceableView view = (IContentReplaceableView)viewManager.GetCandidateViewForNewDocument().GetAdapter(typeof(IContentReplaceableView));
+							coreServices.SessionManager.StartNewSession(session, view);
 
-							ts.TerminalControl.HideSizeTip = true;
+							session.TerminalControl.HideSizeTip = true;
 
 							Form containerForm = view.ParentForm.AsForm();
 
