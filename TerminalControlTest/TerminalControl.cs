@@ -142,7 +142,7 @@ namespace Poderosa.TerminalControl
 			(result as ICloseableTerminalConnection).ConnectionClosed += TerminalControl_ConnectionClosed;
 			(result as ICloseableTerminalConnection).ConnectionLost += TerminalControl_ConnectionLost;
 
-			wm.ActiveWindow.AsForm().Invoke(
+			wm.MainWindows.First().AsForm().Invoke(
 				new Action(
 					() =>
 						{

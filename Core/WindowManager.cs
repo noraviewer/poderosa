@@ -123,7 +123,11 @@ namespace Poderosa.Forms {
         }
 
         private MainWindow CreateMainWindow(MainWindowArgument arg) {
-            MainWindow w = new MainWindow(arg, _menu);
+			if (InvisibleMode) {
+				arg = new MainWindowArgument(arg.Location, FormWindowState.Minimized, arg.SplitInfo, arg.ToolBarInfo, arg.TabRowCount);
+			}
+			
+			MainWindow w = new MainWindow(arg, _menu);
             w.Text = "Poderosa";
             w.FormClosed += new FormClosedEventHandler(WindowClosedHandler);
             w.Activated += delegate(object sender, EventArgs args) {
@@ -135,7 +139,7 @@ namespace Poderosa.Forms {
 		        w.ShowInTaskbar = false;
 	        }
 
-	        w.Show();
+			w.Show();
 
 	        return w;
         }
