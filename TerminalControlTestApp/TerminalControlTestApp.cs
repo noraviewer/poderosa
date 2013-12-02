@@ -7,9 +7,9 @@ using Poderosa.TerminalControl;
 
 namespace TerminalControlTestApp
 {
-	public partial class TerminalControlTest : Form
+	public partial class TerminalControlTestApp : Form
 	{
-		public TerminalControlTest()
+		public TerminalControlTestApp()
 		{
 			InitializeComponent();
 		}
@@ -33,7 +33,7 @@ namespace TerminalControlTestApp
 			if (loginDialog.ShowDialog(this) == DialogResult.OK)
 			{
 				TabPage newTab = new TabPage(loginDialog.HostName);
-				TerminalControl terminalControl = new TerminalControl
+				SshTerminalControl terminalControl = new SshTerminalControl
 				                   {
 					                   Font = new Font("Consolas", 14),
 					                   ForeColor = Color.LightGray,

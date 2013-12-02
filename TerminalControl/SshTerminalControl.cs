@@ -18,7 +18,7 @@ namespace Poderosa.TerminalControl
 	/// Control class that contains the SSH terminal UI.  Creates a new <see cref="IPoderosaMainWindow"/> instance, kicks off the connection process, and then
 	/// steals the <see cref="IContentReplaceableView"/> instance representing the actual terminal window and places it in this control.
 	/// </summary>
-	public partial class TerminalControl : UserControl, IInterruptableConnectorClient
+	public partial class SshTerminalControl : UserControl, IInterruptableConnectorClient
 	{
 		/// <summary>
 		/// Invisible Poderosa application window that we create to create connection windows and then steal them.
@@ -54,7 +54,7 @@ namespace Poderosa.TerminalControl
 		/// <summary>
 		/// Default constructor, initializes the <see cref="Port"/>, <see cref="TerminalType"/>, and <see cref="SshProtocol"/> properties.
 		/// </summary>
-		public TerminalControl()
+		public SshTerminalControl()
 		{
 			InitializeComponent();
 
@@ -66,7 +66,7 @@ namespace Poderosa.TerminalControl
 		/// <summary>
 		/// Static constructor, creates the invisible Poderosa application window once per execution.
 		/// </summary>
-		static TerminalControl()
+		static SshTerminalControl()
 		{
 			_poderosaApplication = PoderosaStartup.CreatePoderosaApplication(new string[] { });
 			_poderosaWorld = _poderosaApplication.Start(new EmptyTracer());

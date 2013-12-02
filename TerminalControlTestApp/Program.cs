@@ -14,7 +14,7 @@ namespace TerminalControlTestApp
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 
-			Application.Run(new TerminalControlTest());
+			Application.Run(new TerminalControlTestApp());
 		}
 	}
 }

@@ -1,6 +1,6 @@
 ﻿namespace Poderosa.TerminalControl
 {
-	partial class TerminalControl
+	partial class SshTerminalControl
 	{
 		/// <summary> 
 		/// Required designer variable.

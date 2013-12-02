@@ -52,11 +52,11 @@
     <Compile Include="InvisibleModePlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SshProtocol.cs" />
-    <Compile Include="TerminalControl.cs">
+    <Compile Include="SshTerminalControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="TerminalControl.Designer.cs">
-      <DependentUpon>TerminalControl.cs</DependentUpon>
+    <Compile Include="SshTerminalControl.Designer.cs">
+      <DependentUpon>SshTerminalControl.cs</DependentUpon>
     </Compile>
     <Compile Include="TerminalType.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">

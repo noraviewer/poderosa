@@ -1,6 +1,6 @@
 ﻿namespace TerminalControlTestApp
 {
-	partial class TerminalControlTest
+	partial class TerminalControlTestApp
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -28,10 +28,10 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TerminalControlTest));
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TerminalControlTestApp));
 			this._terminalTabs = new System.Windows.Forms.TabControl();
 			this._newTerminalTab = new System.Windows.Forms.TabPage();
-			this._terminal = new Poderosa.TerminalControl.TerminalControl();
+			this._terminal = new Poderosa.TerminalControl.SshTerminalControl();
 			this._terminalTabs.SuspendLayout();
 			this._newTerminalTab.SuspendLayout();
 			this.SuspendLayout();
@@ -99,7 +99,7 @@
 
 		private System.Windows.Forms.TabControl _terminalTabs;
 		private System.Windows.Forms.TabPage _newTerminalTab;
-		private Poderosa.TerminalControl.TerminalControl _terminal;
+		private Poderosa.TerminalControl.SshTerminalControl _terminal;
 
 	}
 }

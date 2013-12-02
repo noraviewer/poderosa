@@ -50,19 +50,19 @@
     <Compile Include="LoginDialog.Designer.cs">
       <DependentUpon>LoginDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="TerminalControlTest.cs">
+    <Compile Include="TerminalControlTestApp.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TerminalControlTest.Designer.cs">
-      <DependentUpon>TerminalControlTest.cs</DependentUpon>
+    <Compile Include="TerminalControlTestApp.Designer.cs">
+      <DependentUpon>TerminalControlTestApp.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="LoginDialog.resx">
       <DependentUpon>LoginDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TerminalControlTest.resx">
-      <DependentUpon>TerminalControlTest.cs</DependentUpon>
+    <EmbeddedResource Include="TerminalControlTestApp.resx">
+      <DependentUpon>TerminalControlTestApp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
