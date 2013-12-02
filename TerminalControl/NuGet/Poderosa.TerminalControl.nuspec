@@ -1,28 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
-        <id>TerminalControl</id>
+        <id>Poderosa.TerminalControl</id>
         <version>0.1.0</version>
         <title>Terminal Control</title>
         <authors>Luke Stratman</authors>
         <licenseUrl>https://github.com/lstratman/poderosa/blob/master/LICENSE.txt</licenseUrl>
         <projectUrl>https://github.com/lstratman/poderosa/tree/master/TerminalControl</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>WinForms control that allows embedding of SSH terminals within applications.</description>
+        <description>WinForms control using the Poderosa project that allows embedding of SSH terminals within applications.</description>
         <summary />
         <releaseNotes />
         <copyright>(c) 2013, Luke Stratman</copyright>
-        <dependencies />
+        <dependencies>
+	    <dependency id="Poderosa.Core" version="0.1.0" />
+        </dependencies>
     </metadata>
     <files>
-        <file src="..\bin\Release\Granados.dll" target="lib\Granados.dll" />
-        <file src="..\bin\Release\Poderosa.Core.dll" target="lib\Poderosa.Core.dll" />
-        <file src="..\bin\Release\Poderosa.Plugin.dll" target="lib\Poderosa.Plugin.dll" />
         <file src="..\bin\Release\Poderosa.PortForwardingCommand.dll" target="lib\Poderosa.PortForwardingCommand.dll" />
-        <file src="..\bin\Release\Poderosa.Protocols.dll" target="lib\Poderosa.Protocols.dll" />
         <file src="..\bin\Release\Poderosa.TerminalControl.dll" target="lib\Poderosa.TerminalControl.dll" />
-        <file src="..\bin\Release\Poderosa.TerminalEmulator.dll" target="lib\Poderosa.TerminalEmulator.dll" />
-        <file src="..\bin\Release\Poderosa.TerminalSession.dll" target="lib\Poderosa.TerminalSession.dll" />
-        <file src="..\bin\Release\Poderosa.UI.dll" target="lib\Poderosa.UI.dll" />
     </files>
 </package>
