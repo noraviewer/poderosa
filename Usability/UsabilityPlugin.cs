@@ -52,10 +52,13 @@ namespace Poderosa.Usability {
             //Guevara AboutBox
             pm.FindExtensionPoint("org.poderosa.window.aboutbox").RegisterExtension(new GuevaraAboutBoxFactory());
 
+#if TERMCONTROL
+#else
             //SSH KnownHost
             _sshKnownHosts = new SSHKnownHosts();
             cs.PreferenceExtensionPoint.RegisterExtension(_sshKnownHosts);
             pm.FindExtensionPoint(ProtocolsPluginConstants.HOSTKEYCHECKER_EXTENSION).RegisterExtension(_sshKnownHosts);
+#endif
         }
         public override void TerminatePlugin() {
             base.TerminatePlugin();

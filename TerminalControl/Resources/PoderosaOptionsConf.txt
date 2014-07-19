@@ -1,0 +1,41 @@
+Poderosa {
+  org.poderosa.core.commands {
+    keybinds {
+      org.poderosa.core.application.newwindow=
+      org.poderosa.core.application.quit=
+      org.poderosa.core.session.closedocument=
+      org.poderosa.core.window.splithorizontal=
+      org.poderosa.core.window.splitvertical=
+      org.poderosa.core.window.splitunify=
+      org.poderosa.terminalemulator.toggleCharTriggerIntelliSense=
+      org.poderosa.terminalsession.reproduce=
+      org.poderosa.session.telnetSSH=
+    }
+  }
+  org.poderosa.core.window {
+  }
+  org.poderosa.protocols {
+  }
+  org.poderosa.terminalemulator {
+    caretColor=0
+  }
+  org.poderosa.terminalemulator.shellscheme {
+    scheme {
+      name=generic
+    }
+  }
+  org.poderosa.terminalemulator.promptrecognizer {
+  }
+  org.poderosa.terminalsessions {
+  }
+  org.poderosa.macro {
+  }
+  org.poderosa.usability.ssh-keyagent {
+  }
+  org.poderosa.usability.mru {
+  }
+  org.poderosa.usability.ssh-knownhosts {
+  }
+  org.poderosa.startupAction {
+  }
+}

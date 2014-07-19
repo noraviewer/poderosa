@@ -692,8 +692,12 @@ namespace Poderosa.View {
 
         public bool CanSplit {
             get {
+#if TERMCONTROL
+                return false;
+#else
                 IContentReplaceableView v = AsControlReplaceableView();
                 return v == null ? false : GetSplittableViewManager().CanSplit(v);
+#endif
             }
         }
         public int SplitClientWidth {

@@ -1,5 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -11,7 +18,7 @@
     <AssemblyName>Poderosa.TerminalControl</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -19,16 +26,16 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;TERMCONTROL</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;TERMCONTROL</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -37,28 +44,42 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EmptyTracer.cs" />
+    <Compile Include="ImageStyleLabel.cs" />
+    <Compile Include="InfoDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InfoDialog.Designer.cs">
+      <DependentUpon>InfoDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="InvisibleModePlugin.cs" />
+    <Compile Include="LoginDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginDialog.Designer.cs">
+      <DependentUpon>LoginDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoginProfile.cs" />
+    <Compile Include="PoderosaAccessPoint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SshProtocol.cs" />
-    <Compile Include="SshTerminalControl.cs">
+    <Compile Include="SshTelnetTerminal.cs" />
+    <Compile Include="SshTelnetTerminalControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SshTerminalControl.Designer.cs">
-      <DependentUpon>SshTerminalControl.cs</DependentUpon>
+    <Compile Include="SshTelnetTerminalControl.Designer.cs">
+      <DependentUpon>SshTelnetTerminalControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="TerminalType.cs" />
+    <EmbeddedResource Include="InfoDialog.resx">
+      <DependentUpon>InfoDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginDialog.resx">
+      <DependentUpon>LoginDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -69,6 +90,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="SshTelnetTerminalControl.resx">
+      <DependentUpon>SshTelnetTerminalControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -78,6 +103,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Resources\ProgramInfo.rtf" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">
@@ -91,10 +117,6 @@
     <ProjectReference Include="..\Plugin\Plugin.csproj">
       <Project>{d84b661b-503e-4c22-892b-7499b72c7e04}</Project>
       <Name>Plugin</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PortForwardingCommand\PortForwardingCommand.csproj">
-      <Project>{c9b6c0fe-904c-4809-887d-2aaa168ab1e1}</Project>
-      <Name>PortForwardingCommand</Name>
     </ProjectReference>
     <ProjectReference Include="..\Protocols\Protocols.csproj">
       <Project>{04f18da5-bf47-48a3-9b8b-b6b93dcba875}</Project>
@@ -112,8 +134,31 @@
       <Project>{9568d8ac-7b55-42e0-acd7-204e397e7048}</Project>
       <Name>UI</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Usability\Usability.csproj">
+      <Project>{7B6BA4DA-8390-4605-B979-C2D1CC09BD9A}</Project>
+      <Name>Usability</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PoderosaOptionsConf.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\host.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\config.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\disconnect.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\connect.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

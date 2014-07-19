@@ -23,6 +23,22 @@ namespace Poderosa.Forms {
 #else
     internal abstract class PoderosaForm : Form, IPoderosaForm {
 #endif
+
+#if TERMCONTROL
+        protected override System.Windows.Forms.CreateParams CreateParams
+        {
+            get
+            {
+                const int WS_EX_TOOLWINDOW = 0x00000080;
+
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle = cp.ExStyle | WS_EX_TOOLWINDOW;
+
+                return cp;
+            }
+        }
+#endif
+
         private System.ComponentModel.IContainer components = null;
         private Timer _contextMenuDisposeTimer;
 

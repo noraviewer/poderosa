@@ -135,6 +135,9 @@ namespace Poderosa.Forms {
             };
 
 	        if (InvisibleMode) {
+#if TERMCONTROL
+                w.Opacity = 0;
+#endif
 		        w.WindowState = FormWindowState.Minimized;
 		        w.ShowInTaskbar = false;
 	        }
